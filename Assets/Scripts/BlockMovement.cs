@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,36 +19,33 @@ public class BlockMovement : MonoBehaviour
     {
         ChangeBlockLocation();
     }
-    private bool isValid()
-    {
-        return true;
-    }
+
     private void ChangeBlockLocation()
     {
 
         // input값이 valid한지 먼저 체크 한 후 진행 
+        if (IsAllBlocksValid())
+        {
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Time.time - fall >= fallingSpeed)
+            {
+                MoveDown();
+                fall = Time.time;
 
-        if (!isValid())
-            return;
-
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Time.time- fall >= fallingSpeed)
-        {
-            MoveDown();
-            fall = Time.time;
-
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                Rotate();
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                MoveLeft();
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                MoveRight();
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Rotate();
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            MoveLeft();
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            MoveRight();
-        }
+  
     }
     private void MoveDown()
     {
@@ -65,5 +63,19 @@ public class BlockMovement : MonoBehaviour
     private void MoveRight()
     {
         transform.position += new Vector3(1, 0, 0);
+    }
+
+    private bool IsAllBlocksValid()
+    {
+
+        foreach(Transform children in transform)
+        {
+           if(!GameManager.I.IsValid(children.transform.position))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
