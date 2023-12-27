@@ -48,9 +48,12 @@ public class BlockMovement : MonoBehaviour
     }
     private void MoveDown()
     {
-        transform.position += new Vector3(0, -1, 0);
-        if (!IsAllBlocksValid())
-            transform.position += new Vector3(0, 1, 0);
+        if (transform.position.y != 0) //¹Ù´Ú¿¡ ´êÀ¸¸é 
+        {
+            transform.position += new Vector3(0, -1, 0);
+            if (!IsAllBlocksValid())
+                transform.position += new Vector3(0, 1, 0);
+        }
     }
     private void Rotate()
     {
