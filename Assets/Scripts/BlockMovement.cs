@@ -24,8 +24,7 @@ public class BlockMovement : MonoBehaviour
     {
 
         // input값이 valid한지 먼저 체크 한 후 진행 
-        if (IsAllBlocksValid())
-        {
+
             if (Input.GetKeyDown(KeyCode.DownArrow) || Time.time - fall >= fallingSpeed)
             {
                 MoveDown();
@@ -44,25 +43,32 @@ public class BlockMovement : MonoBehaviour
             {
                 MoveRight();
             }
-        }
-  
+        
+ 
     }
     private void MoveDown()
     {
         transform.position += new Vector3(0, -1, 0);
+        if (!IsAllBlocksValid())
+            transform.position += new Vector3(0, 1, 0);
     }
     private void Rotate()
     {
         transform.Rotate(0, 0, 90);
-
+        if (!IsAllBlocksValid())
+            transform.Rotate(0, 0, -90);
     }
     private void MoveLeft()
     {
         transform.position += new Vector3(-1, 0, 0);
+        if (!IsAllBlocksValid())
+            transform.position -= new Vector3(-1, 0, 0);
     }
     private void MoveRight()
     {
         transform.position += new Vector3(1, 0, 0);
+        if (!IsAllBlocksValid())
+            transform.position -= new Vector3(1, 0, 0);
     }
 
     private bool IsAllBlocksValid()

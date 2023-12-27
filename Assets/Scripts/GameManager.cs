@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
             int PosY = Mathf.RoundToInt(blockPos.y);
 
 
-            if (PosX < 0 || PosY < 0 || PosX >= widthOfGrid-1 || Board[PosX,PosY] != null)
+            if (PosX < 0 || PosY < 0 || PosX >= widthOfGrid|| Board[PosX,PosY] != null)
             {
                 return false;
             }
