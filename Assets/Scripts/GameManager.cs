@@ -98,9 +98,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(board[i, height].gameObject);
             board[i, height] =null;
-       
-            score.text=(Int32.Parse(score.text) + 1).ToString();
+
+         
         }
+        score.text = (Int32.Parse(score.text) + 10).ToString();
     }
 
     public void MoveDownRow(int height)
