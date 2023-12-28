@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     public static GameManager I;
     public static int heightOfGrid = 20;
     public static int widthOfGrid = 10;
+    public TextMeshProUGUI score;
     public static Transform[,] board = new Transform[widthOfGrid, heightOfGrid];//board;
 
     void Awake()
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SpawnBlock();
+        score.text = "0";
     }
 
     // Update is called once per frame
@@ -88,6 +91,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(board[i, height].gameObject);
             board[i, height] =null;
+            score.text=(int.Parse(score.text) + 10).ToString();
         }
     }
 
@@ -112,7 +116,7 @@ public class GameManager : MonoBehaviour
     public void UpdatingBoardMap()
     {
   
-            for (int i = heightOfGrid-1; i >=0; i--)
+            for (int i = heightOfGrid-1;  i >=0; i--) // for(int i = 0;  i  < heightOfGrid; i++)
             {
                 if (IsFullAt(i))
                 {

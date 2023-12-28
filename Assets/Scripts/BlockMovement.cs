@@ -54,6 +54,7 @@ public class BlockMovement : MonoBehaviour
             {
                 transform.position += new Vector3(0, 1, 0);
                 GameManager.I.AddBlockToGrid(this);
+           
                 enabled = false;
                 GameManager.I.UpdatingBoardMap();
                 GameManager.I.SpawnBlock();
