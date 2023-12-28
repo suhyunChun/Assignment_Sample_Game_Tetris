@@ -55,10 +55,9 @@ public class BlockMovement : MonoBehaviour
                 transform.position += new Vector3(0, 1, 0);
                 GameManager.I.AddBlockToGrid(this);
                 enabled = false;
+                GameManager.I.UpdatingBoardMap();
                 GameManager.I.SpawnBlock();
             }
-        
-
     }
     private void Rotate()
     {
@@ -66,7 +65,6 @@ public class BlockMovement : MonoBehaviour
         if (!IsAllBlocksValid())
         {
             transform.Rotate(0, 0, -90);
-           // GameManager.I.AddBlockToGrid(this);
         }
     }
     private void MoveLeft()
@@ -75,7 +73,6 @@ public class BlockMovement : MonoBehaviour
         if (!IsAllBlocksValid())
         {
             transform.position -= new Vector3(-1, 0, 0);
-            //GameManager.I.AddBlockToGrid(this);
         }
     }
     private void MoveRight()
@@ -84,7 +81,6 @@ public class BlockMovement : MonoBehaviour
         if (!IsAllBlocksValid())
         {
             transform.position -= new Vector3(1, 0, 0);
-           // GameManager.I.AddBlockToGrid(this);
         }
     }
 

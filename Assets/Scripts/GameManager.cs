@@ -71,4 +71,61 @@ public class GameManager : MonoBehaviour
     {
         GameObject nextBlcok = (GameObject)Instantiate(Resources.Load(GetRandomBlockType(),typeof(GameObject)), new Vector2(5.0f, 19.0f),Quaternion.identity);
     }
+
+    public bool IsFullAt(int height)
+    {
+        for(int i = 0; i < widthOfGrid; i++)
+        {
+            if (board[i, height] == null)
+                return false;
+        }
+        return true;
+    }
+
+    public void DeleteFullRow(int height) 
+    {
+        for(int i =0; i<widthOfGrid; i++)
+        {
+            Destroy(board[i, height].gameObject);
+            board[i, height] =null;
+        }
+    }
+
+    public void MoveDownRow(int height)
+    {
+
+        for (int j = height; j < heightOfGrid; j++)
+        {
+            for (int i = 0; i < widthOfGrid; i++)
+            {
+                if (board[i, j] != null) //블록이 있는 곳에만 
+                {
+                    Debug.Log("move down");
+                    board[i, j - 1] = board[i, j];
+                    board[i, j] = null;
+                    board[i, j - 1].transform.position -= new Vector3(0, 1, 0);
+                }
+            }
+        }
+    }
+
+    public void UpdatingBoardMap()
+    {
+  
+            for (int i = heightOfGrid-1; i >=0; i--)
+            {
+                if (IsFullAt(i))
+                {
+                    Debug.Log($"full at {i}");
+                    DeleteFullRow(i);
+                    MoveDownRow(i);
+                }
+            }
+        }
+    
+
+    public void GameOver()
+    {
+        Debug.Log("Game over");
+    }
 }
