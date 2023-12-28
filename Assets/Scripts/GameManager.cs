@@ -38,10 +38,6 @@ public class GameManager : MonoBehaviour
         gameOver.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     public void AddBlockToGrid(BlockMovement block)
     {
@@ -79,7 +75,9 @@ public class GameManager : MonoBehaviour
     }
     public void SpawnBlock()
     {
-        GameObject nextBlcok = (GameObject)Instantiate(Resources.Load(GetRandomBlockType(),typeof(GameObject)), new Vector2(5.0f, 19.0f),Quaternion.identity);
+        GameObject container = GameObject.Find("Blocks");
+        GameObject nextBlock = (GameObject)Instantiate(Resources.Load(GetRandomBlockType(),typeof(GameObject)), new Vector2(5.0f, 19.0f),Quaternion.identity);
+        nextBlock.transform.parent = container.transform;
     }
 
     public bool IsFullAt(int height)
@@ -134,7 +132,7 @@ public class GameManager : MonoBehaviour
                     MoveDownRow(i);
                 }
             }
-        }
+      }
     
 
     public void GameOver()
