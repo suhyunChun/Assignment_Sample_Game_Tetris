@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     public static int heightOfGrid = 20;
     public static int widthOfGrid = 10;
     public TextMeshProUGUI score;
+    public GameObject gameOver;
     public static Transform[,] board = new Transform[widthOfGrid, heightOfGrid];//board;
 
     void Awake()
@@ -30,14 +32,15 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1.0f;
         SpawnBlock();
         score.text = "0";
+        gameOver.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void AddBlockToGrid(BlockMovement block)
@@ -91,7 +94,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(board[i, height].gameObject);
             board[i, height] =null;
-            score.text=(int.Parse(score.text) + 10).ToString();
+       
+            score.text=(Int32.Parse(score.text) + 1).ToString();
         }
     }
 
@@ -131,5 +135,12 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Game over");
+        gameOver.SetActive(true);
+        Time.timeScale = 0.0f; 
+    }
+
+    public void RetryBtn()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
