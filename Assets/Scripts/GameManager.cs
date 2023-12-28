@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour
             {
                 board[PosX, PosY] = children;
             }
+            else
+            {
+                GameOver();
+            }
         }
     }
 
@@ -139,8 +143,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f; 
     }
 
-    public void RetryBtn()
+    public void StartGameBtn()
     {
         SceneManager.LoadScene("MainScene");
     }
+
 }
