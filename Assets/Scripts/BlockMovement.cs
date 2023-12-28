@@ -48,30 +48,45 @@ public class BlockMovement : MonoBehaviour
     }
     private void MoveDown()
     {
-        if (transform.position.y != 0) //¹Ù´Ú¿¡ ´êÀ¸¸é 
-        {
+
             transform.position += new Vector3(0, -1, 0);
             if (!IsAllBlocksValid())
+            {
                 transform.position += new Vector3(0, 1, 0);
-        }
+                GameManager.I.AddBlockToGrid(this);
+
+                enabled = false;
+                GameManager.I.SpawnBlock();
+            }
+        
+
     }
     private void Rotate()
     {
         transform.Rotate(0, 0, 90);
         if (!IsAllBlocksValid())
+        {
             transform.Rotate(0, 0, -90);
+            GameManager.I.AddBlockToGrid(this);
+        }
     }
     private void MoveLeft()
     {
         transform.position += new Vector3(-1, 0, 0);
         if (!IsAllBlocksValid())
+        {
             transform.position -= new Vector3(-1, 0, 0);
+            GameManager.I.AddBlockToGrid(this);
+        }
     }
     private void MoveRight()
     {
         transform.position += new Vector3(1, 0, 0);
         if (!IsAllBlocksValid())
+        {
             transform.position -= new Vector3(1, 0, 0);
+            GameManager.I.AddBlockToGrid(this);
+        }
     }
 
     private bool IsAllBlocksValid()
@@ -87,4 +102,6 @@ public class BlockMovement : MonoBehaviour
 
         return true;
     }
+
+
 }
