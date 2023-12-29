@@ -57,7 +57,11 @@ public class BlockMovement : MonoBehaviour
            
                 enabled = false;
                 GameManager.I.UpdatingBoardMap();
-                GameManager.I.SpawnBlock();
+                Debug.Log("move down");
+                if (!GameManager.I.isStop)
+                {
+                    GameManager.I.SpawnBlock();
+                }
             }
     }
     private void Rotate()

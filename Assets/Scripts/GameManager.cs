@@ -18,12 +18,16 @@ public class GameManager : MonoBehaviour
         T,
         Z
     }
+
+
     public static GameManager I;
     public static int heightOfGrid = 20;
     public static int widthOfGrid = 10;
     public TextMeshProUGUI score;
     public GameObject gameOver;
     public static Transform[,] board = new Transform[widthOfGrid, heightOfGrid];//board;
+    public bool isStop;
+
 
     void Awake()
     {
@@ -33,9 +37,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1.0f;
+        Debug.Log("start");
         SpawnBlock();
         score.text = "0";
         gameOver.SetActive(false);
+        isStop = false;
     }
 
 
@@ -61,7 +67,8 @@ public class GameManager : MonoBehaviour
     {
             int PosX = Mathf.RoundToInt(blockPos.x);
             int PosY = Mathf.RoundToInt(blockPos.y);
-            if (PosX < 0 || PosY < 0 || PosX >= widthOfGrid|| board[PosX,PosY] != null)
+            Debug.Log(PosY);
+            if (PosX < 0 || PosY < 0 || PosX >= widthOfGrid|| PosY >=heightOfGrid || board[PosX,PosY] != null)
             {
                 return false;
             }
@@ -139,7 +146,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game over");
         gameOver.SetActive(true);
-        Time.timeScale = 0.0f; 
+        Time.timeScale = 0.0f;
+        isStop = true;
     }
 
     public void StartGameBtn()
